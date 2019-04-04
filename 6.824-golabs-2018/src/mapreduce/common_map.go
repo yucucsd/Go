@@ -53,6 +53,26 @@ func doMap(
 	//
 	// Your code here (Part I).
 	//
+	content := ioutuk.ReadAll(inFile)
+	kv = mapF(inFile, content)
+	for r = 0; i < nReduce; i++ {
+		writefile := reduceName(jobName, mapTask, r)
+		file, err := os.Create(writefile)
+		if err != nil {
+        	fmt.Println(err)
+    	}
+    	file.Close()
+	}
+	for k , v := range kv {
+		r := ihash(k)
+		writefile := reduceName(jobName, mapTask, r)
+		file, err := os.Open(writefile)
+		if err != nil {
+        	fmt.Println(err)
+    	}
+    	
+	}
+
 }
 
 func ihash(s string) int {
